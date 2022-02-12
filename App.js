@@ -1,24 +1,23 @@
-import { View, Text, Platform, SafeAreaView, StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import { View, Text } from "react-native";
+import { ToastProvider } from "react-native-toast-notifications";
+import Temp from "./src/components/sample/Temp";
 
 const App = () => {
-  const [items, setItems] = useState([{ id: 1, name: "Avengers" }]);
-
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
-      <Text>App</Text>
-    </SafeAreaView>
+    <ToastProvider
+      renderType={{
+        custom: (toast) => (
+          <View
+            style={{ backgroundColor: "#666", padding: 10, borderRadius: 10 }}
+          >
+            <Text style={{ fontSize: 16, color: "#fff" }}>{toast.message}</Text>
+          </View>
+        ),
+      }}
+    >
+      <Temp />
+    </ToastProvider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#17a8d4",
-    paddingTop: Platform.OS === "android" ? 25 : 0,
-  },
-});
 
 export default App;
