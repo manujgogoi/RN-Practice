@@ -9,38 +9,10 @@ import {
 } from "react-native";
 
 const App = () => {
-  const [items, setItems] = useState([
-    { id: 1, name: "Dipankar", age: 28 },
-    { id: 2, name: "Dinesh Gowala", age: 35 },
-    { id: 3, name: "Bhaskar Baruah", age: 36 },
-    { id: 4, name: "Uttam Sarkar", age: 35 },
-    { id: 5, name: "Manash Saikia", age: 36 },
-    { id: 6, name: "Diganta Saikia", age: 39 },
-    { id: 7, name: "Pranab Kalita", age: 40 },
-    { id: 8, name: "Pabitra", age: 33 },
-    { id: 9, name: "Niren", age: 26 },
-    { id: 10, name: "Hemanta", age: 20 },
-    { id: 11, name: "Gautam", age: 34 },
-  ]);
-
   const [sectionData, setSectionData] = useState([
     {
-      category: "Grocery",
-      data: [
-        { id: 1, title: "Potato" },
-        { id: 2, title: "Oniion" },
-        { id: 3, title: "Masoor Dal" },
-        { id: 4, title: "Biscuit" },
-      ],
-    },
-    {
-      category: "Electronics",
-      data: [
-        { id: 1, title: "Smartphone" },
-        { id: 2, title: "Feature Phone" },
-        { id: 3, title: "LED TV" },
-        { id: 4, title: "Monitor" },
-      ],
+      title: "Title 1",
+      data: [{ item: "Item 1-1" }, { item: "Item 1-2" }],
     },
   ]);
 
@@ -50,12 +22,15 @@ const App = () => {
   // ==========================================
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([
-      ...items,
+    const length = sectionData.length;
+    setSectionData([
+      ...sectionData,
       {
-        id: Math.floor(Math.random() * 1000).toString(),
-        name: "Ajay",
-        age: "55",
+        title: `Title ${length + 1}`,
+        data: [
+          { item: `Item ${length + 1}-1` },
+          { item: `Item ${length + 1}-2` },
+        ],
       },
     ]);
     setRefreshing(false);
@@ -63,7 +38,6 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      {/* Refresh control */}
       <View style={styles.itemsContainer}>
         <SectionList
           sections={sectionData}
@@ -71,11 +45,11 @@ const App = () => {
           horizontal={false}
           renderItem={({ item }) => (
             <View style={styles.item}>
-              <Text style={styles.itemText}>{item.title}</Text>
+              <Text style={styles.itemText}>{item.item}</Text>
             </View>
           )}
           renderSectionHeader={({ section }) => (
-            <Text style={styles.category}>{section.category}</Text>
+            <Text style={styles.title}>{section.title}</Text>
           )}
           keyExtractor={(item, index) => index.toString()}
           refreshControl={
@@ -116,7 +90,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 3,
   },
-  category: {
+  title: {
     color: "#fff",
     fontSize: 30,
   },
