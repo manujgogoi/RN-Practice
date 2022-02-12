@@ -1,66 +1,75 @@
 import { useState } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StyleSheet,
-  SectionList,
   Platform,
-  RefreshControl,
+  TextInput,
+  Pressable,
+  Alert,
 } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 const App = () => {
-  const [sectionData, setSectionData] = useState([
-    {
-      title: "Title 1",
-      data: [{ item: "Item 1-1" }, { item: "Item 1-2" }],
-    },
-  ]);
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
 
-  const [refreshing, setRefreshing] = useState(false);
-
-  // Refresh Event Handler
-  // ==========================================
-  const onRefresh = () => {
-    setRefreshing(true);
-    const length = sectionData.length;
-    setSectionData([
-      ...sectionData,
-      {
-        title: `Title ${length + 1}`,
-        data: [
-          { item: `Item ${length + 1}-1` },
-          { item: `Item ${length + 1}-2` },
-        ],
-      },
-    ]);
-    setRefreshing(false);
+  // Event Handlers
+  // ================================
+  const handlePress = () => {
+    Alert.alert(
+      "Warning!",
+      "The name must be longer than 3 characters",
+      [
+        {
+          text: "Don't show again",
+          onPress: () => console.warn("Don't show again!"),
+        },
+        { text: "Cancel", onPress: () => console.warn("Cancel!") },
+        { text: "OK", onPress: () => console.warn("OK pressed!") },
+      ],
+      { cancelable: true, onDismiss: () => console.warn("Alert closes!") }
+    );
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.itemsContainer}>
-        <SectionList
-          sections={sectionData}
-          numColumns={1}
-          horizontal={false}
-          renderItem={({ item }) => (
-            <View style={styles.item}>
-              <Text style={styles.itemText}>{item.item}</Text>
-            </View>
-          )}
-          renderSectionHeader={({ section }) => (
-            <Text style={styles.title}>{section.title}</Text>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              colors={["#992222"]}
-            />
-          }
+      <StatusBar style="light" />
+      <ScrollView>
+        <Text style={styles.text}>Enter your name:</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Enter Text"
+          placeholderTextColor={"#fff"}
+          onChangeText={(value) => setName(value)}
         />
-      </View>
+        <TextInput
+          style={[styles.textInput, { height: 200 }]}
+          multiline
+          textAlignVertical="top"
+          placeholder="Address"
+          placeholderTextColor={"#fff"}
+          onChangeText={(value) => setAddress(value)}
+        />
+        <Text style={styles.text}>You have entered {name}.</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Password"
+          secureTextEntry
+          placeholderTextColor={"#fff"}
+        />
+        <Pressable
+          android_ripple={{ color: "#00f" }}
+          onPress={handlePress}
+          style={({ pressed }) => [
+            { backgroundColor: pressed ? "#6a2a78" : "#666" },
+            styles.button,
+          ]}
+        >
+          <Text style={styles.buttonText}>Click Me!</Text>
+        </Pressable>
+      </ScrollView>
     </View>
   );
 };
@@ -69,33 +78,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "stretch",
-    justifyContent: "center",
-    backgroundColor: "#42f5ce",
+    justifyContent: "flex-start",
+    backgroundColor: "#222",
     paddingTop: Platform.OS === "android" ? 25 : 0,
-  },
-  itemsContainer: {
-    flex: 1,
     paddingHorizontal: 8,
-    backgroundColor: "blue",
   },
-  item: {
-    flex: 1,
-    marginVertical: 10,
-    padding: 5,
-    borderRadius: 5,
-    backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    shadowRadius: 2,
-    elevation: 3,
-  },
-  title: {
+  text: {
     color: "#fff",
-    fontSize: 30,
+    fontSize: 18,
+    marginVertical: 10,
   },
-  itemText: {
-    fontSize: 25,
+  textInput: {
+    borderColor: "#fff",
+    color: "#fff",
+    borderWidth: 2,
+    borderRadius: 5,
+    fontSize: 18,
+    paddingVertical: 5,
+    marginVertical: 10,
+    paddingHorizontal: 10,
+  },
+  button: {
+    marginVertical: 10,
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
 });
 
