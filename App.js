@@ -6,43 +6,34 @@ import {
   Platform,
   Pressable,
   Modal,
+  TextInput,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 const App = () => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="dark" />
       <View>
-        <Text style={styles.text}>Hello</Text>
+        <Text>Enter your name</Text>
+        <LinearGradient
+          colors={[
+            "#00FFFF",
+            "#17C8FF",
+            "#329BFF",
+            "#4C64FF",
+            "#6536FF",
+            "#8000FF",
+          ]}
+          start={{ x: 0.0, y: 1.0 }}
+          end={{ x: 1.0, y: 1.0 }}
+          style={styles.grediant}
+        >
+          <TextInput style={styles.textInput} placeholder="e.g Manuj Gogoi" />
+        </LinearGradient>
       </View>
-      <Pressable style={styles.button} onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>Click Me!</Text>
-      </Pressable>
-
-      {/* Modal */}
-      <Modal
-        visible={modalVisible}
-        transparent
-        animationType="slide"
-        hardwareAccelerated
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalBackdrop}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Hello I am a Modal!!</Text>
-            <Pressable
-              style={styles.button}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.buttonText}>Close</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-      {/* Modal End */}
     </SafeAreaView>
   );
 };
@@ -51,34 +42,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Platform.OS === "android" ? 25 : 0,
-    backgroundColor: "#63e0d4",
   },
-  text: {
-    color: "#2f2f2f",
-    fontSize: 66,
-  },
-  button: {
-    backgroundColor: "#313ab0",
-    alignItems: "center",
-    paddingVertical: 10,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    textTransform: "uppercase",
-  },
-  modalBackdrop: {
-    flex: 1,
-    alignItems: "center",
+  grediant: {
+    height: 45,
+    width: "100%",
     justifyContent: "center",
-    backgroundColor: "#000000aa",
-  },
-  modalView: {
-    backgroundColor: "pink",
-    width: 300,
-    height: 400,
-    padding: 10,
+    alignSelf: "center",
     borderRadius: 10,
+    padding: 1,
+  },
+  textInput: {
+    flex: 1.0,
+    alignSelf: "center",
+    justifyContent: "center",
+    backgroundColor: "#ffffff",
+    color: "#333",
+    width: "99%",
+    margin: 1,
+    borderRadius: 8,
   },
 });
 
