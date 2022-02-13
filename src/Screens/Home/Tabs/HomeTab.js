@@ -1,13 +1,12 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { backgroundColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 
-const HomeScreen = ({ navigation }) => {
+const HomeTab = ({ navigation }) => {
   const handleNavigation = () => {
-    navigation.navigate("Product");
+    navigation.navigate("ProductScreen");
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Screen</Text>
+      <Text style={styles.title}>Home Tab</Text>
       <Pressable
         onPress={handleNavigation}
         style={({ pressed }) => [
@@ -41,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default HomeTab;

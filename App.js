@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
-import HomeScreen from "./src/Screens/HomeScreen";
+import HomeScreen from "./src/Screens/Home/HomeScreen";
 import ProductScreen from "./src/Screens/ProductScreen";
 
 const Stack = createStackNavigator();
@@ -11,11 +11,11 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ header: () => null }}>
         <Stack.Screen
-          name="Home"
+          name="HomeScreen"
           component={HomeScreen}
           options={{ header: () => null }}
         />
-        <Stack.Screen name="Product" component={ProductScreen} />
+        <Stack.Screen name="ProductScreen" component={ProductScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
