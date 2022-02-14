@@ -6,7 +6,7 @@ const HomeTab = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home Tab</Text>
+      <Text style={styles.title}>This is my Home Tab</Text>
       <Pressable
         onPress={handleNavigation}
         style={({ pressed }) => [
